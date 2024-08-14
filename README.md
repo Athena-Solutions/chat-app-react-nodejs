@@ -2,9 +2,11 @@
 Chat application build with the power of MERN Stack. You can find the tutorial [here](https://www.youtube.com/watch?v=otaQKODEUFs)
 
 
-![login page](./images/snappy_login.png)
+![login page](![image]("C:\Users\ASUS\Pictures\Screenshots\Screenshot 2024-08-14 104907.png")
+)
 
-![home page](./images/snappy.png)
+![home page](.![Screenshot 2024-08-14 104735](https://github.com/user-attachments/assets/dd2c1c78-78a8-44bd-b558-88136df2bf9d)
+)
 
 ## Installation Guide
 
