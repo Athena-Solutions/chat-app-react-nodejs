@@ -1,8 +1,9 @@
- Chat Application 
+**CHAT APPLICATION  **
 Chat application build with the power of MERN Stack. You can find the tutorial [here](https://www.youtube.com/watch?v=otaQKODEUFs)
 
 
-![login page](![image]("C:\Users\ASUS\Pictures\Screenshots\Screenshot 2024-08-14 104907.png")
+![login page](![Screenshot 2024-08-14 104907](https://github.com/user-attachments/assets/2b474bbd-042b-4867-a4f6-215e411af71b)
+")
 )
 
 ![home page](.![Screenshot 2024-08-14 104735](https://github.com/user-attachments/assets/dd2c1c78-78a8-44bd-b558-88136df2bf9d)
