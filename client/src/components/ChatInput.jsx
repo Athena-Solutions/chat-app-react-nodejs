@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
+import { AiOutlinePlus } from "react-icons/ai";
+import { AiFillFileImage, AiFillFile } from "react-icons/ai";
+import { FaVideo } from "react-icons/fa";
 import styled from "styled-components";
 import Picker from "emoji-picker-react";
 
 export default function ChatInput({ handleSendMsg }) {
   const [msg, setMsg] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showFileOptions, setShowFileOptions] = useState(false);
+
   const handleEmojiPickerhideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
@@ -25,6 +30,14 @@ export default function ChatInput({ handleSendMsg }) {
     }
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      handleSendMsg(file);
+      event.target.value = null; // Reset file input
+    }
+  };
+
   return (
     <Container>
       <div className="button-container">
@@ -32,11 +45,46 @@ export default function ChatInput({ handleSendMsg }) {
           <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} />
           {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />}
         </div>
+        <div className="file-options">
+          <AiOutlinePlus
+            className="plus-icon"
+            onClick={() => setShowFileOptions(!showFileOptions)}
+          />
+          {showFileOptions && (
+            <div className="file-inputs">
+              <label>
+                <AiFillFileImage />
+                <input
+
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />Image
+              </label>
+              <label>
+                <FaVideo />
+                <input
+                  type="file"
+                  accept="video/*"
+                  onChange={handleFileChange}
+                />Video
+              </label>
+              <label>
+                <AiFillFile />
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx,.xls,.xlsx"
+                  onChange={handleFileChange}
+                />Document
+              </label>
+            </div>
+          )}
+        </div>
       </div>
       <form className="input-container" onSubmit={(event) => sendChat(event)}>
         <input
           type="text"
-          placeholder="type your message here"
+          placeholder="Type your message here"
           onChange={(e) => setMsg(e.target.value)}
           value={msg}
         />
@@ -47,35 +95,34 @@ export default function ChatInput({ handleSendMsg }) {
     </Container>
   );
 }
-
 const Container = styled.div`
-  display: grid;
+  display: flex;
   align-items: center;
-  grid-template-columns: 5% 95%;
+  padding: 1rem;
   background-color: #080420;
-  padding: 0 2rem;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
-    padding: 0 1rem;
-    gap: 1rem;
-  }
+  
   .button-container {
     display: flex;
     align-items: center;
     color: white;
-    gap: 1rem;
+    gap: 0.5rem;
+
     .emoji {
       position: relative;
+      
       svg {
         font-size: 1.5rem;
         color: #ffff00c8;
         cursor: pointer;
       }
+
       .emoji-picker-react {
         position: absolute;
         top: -350px;
         background-color: #080420;
         box-shadow: 0 5px 10px #9a86f3;
         border-color: #9a86f3;
+
         .emoji-scroll-wrapper::-webkit-scrollbar {
           background-color: #080420;
           width: 5px;
@@ -83,31 +130,81 @@ const Container = styled.div`
             background-color: #9a86f3;
           }
         }
+
         .emoji-categories {
           button {
             filter: contrast(0);
           }
         }
+
         .emoji-search {
           background-color: transparent;
           border-color: #9a86f3;
         }
+
         .emoji-group:before {
           background-color: #080420;
         }
       }
     }
+
+    .file-options {
+      position: relative;
+
+      .plus-icon {
+        font-size: 1.5rem;
+        color: #9a86f3;
+        cursor: pointer;
+        width: 50px;
+      }
+
+      .file-inputs {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: -150px;
+        left: -20px;
+        background-color: #080420;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 5px 10px #9a86f3;
+        width: 150px;
+
+        label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.3rem 0;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          svg {
+            font-size: 1.5rem;
+            color: #9a86f3;
+          }
+
+          &:hover {
+            background-color: #9a86f3;
+            color: #fff;
+          }
+
+          input {
+            display: none;
+          }
+        }
+      }
+    }
   }
+
   .input-container {
-    width: 100%;
-    border-radius: 2rem;
     display: flex;
     align-items: center;
-    gap: 2rem;
+    width: 100%;
     background-color: #ffffff34;
+    border-radius: 2rem;
+
     input {
-      width: 90%;
-      height: 60%;
+      flex: 1;
       background-color: transparent;
       color: white;
       border: none;
@@ -117,26 +214,24 @@ const Container = styled.div`
       &::selection {
         background-color: #9a86f3;
       }
+
       &:focus {
         outline: none;
       }
     }
+
     button {
-      padding: 0.3rem 2rem;
-      border-radius: 2rem;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       background-color: #9a86f3;
       border: none;
-      @media screen and (min-width: 720px) and (max-width: 1080px) {
-        padding: 0.3rem 1rem;
-        svg {
-          font-size: 1rem;
-        }
-      }
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+
       svg {
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: white;
       }
     }

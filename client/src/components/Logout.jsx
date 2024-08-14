@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BiPowerOff } from "react-icons/bi";
+import { IoMdLogOut } from "react-icons/io";
 import styled from "styled-components";
 import axios from "axios";
 import { logoutRoute } from "../utils/APIRoutes";
@@ -18,7 +18,8 @@ export default function Logout() {
   };
   return (
     <Button onClick={handleClick}>
-      <BiPowerOff />
+      <IoMdLogOut />&nbsp;
+      Logout
     </Button>
   );
 }
@@ -30,6 +31,7 @@ const Button = styled.button`
   padding: 0.5rem;
   border-radius: 0.5rem;
   background-color: #9a86f3;
+  color:white;
   border: none;
   cursor: pointer;
   svg {
